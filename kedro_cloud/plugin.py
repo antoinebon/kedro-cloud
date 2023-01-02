@@ -36,7 +36,7 @@ def cloud_group():
     default="local", help="The config environment to put the template configuration in"
 )
 def init(env):
-    """Initialize a configuration file for the project"""
+    """Initialize a kedro_cloud configuration file for the project"""
     project_path = Path.cwd()
     template_path = Path(__file__).parent / "template"
 
@@ -58,9 +58,7 @@ def sagemaker_group():
 @env_option(default="local")
 def deploy(env):
     """
-    Containerize the project with kedro-docker,
-    Authenticate docker against AWS ECR
-    Push the container to AWS ECR
+    Containerize the project with kedro-docker, Authenticate docker against AWS ECR Push the container to AWS ECR
     """
     config = get_plugin_config(env)["aws"]["sagemaker"]
     image_uri = config["image_uri"]
@@ -78,6 +76,9 @@ def deploy(env):
     "--job-name", "-n", type=str, default=None, help="Name for the sagemaker job"
 )
 @click.option(
+    "--instance-type", "-i", type=str, default=None, help="AWS Sagemaker instance type"
+)
+@click.option(
     "--deploy/--no-deploy",
     "deploy_flag",
     default=True,
@@ -85,7 +86,10 @@ def deploy(env):
     help="Build the docker image for the project using kedro-docker and push to AWS ECR",
 )
 @click.pass_context
-def sagemaker_run(ctx, args, pipeline, env, job_name, deploy_flag, **kwargs):
+def sagemaker_run(ctx, args, pipeline, env, job_name, instance_type, deploy_flag, **kwargs):
+    """
+    Run a dockerized kedro application using AWS Sagemaker
+    """
     config = get_plugin_config(env)["aws"]["sagemaker"]
     job_name = f"kedro-{pipeline}-{env}" if job_name is None else job_name
     base_job_name = job_name.replace("__", "").replace("_", "-").replace(".", "-")
@@ -93,7 +97,7 @@ def sagemaker_run(ctx, args, pipeline, env, job_name, deploy_flag, **kwargs):
         image_uri=config["image_uri"],
         role=config["role_arn"],
         instance_count=1,
-        instance_type=config["instance_type"],
+        instance_type=instance_type or config["instance_type"],
         base_job_name=base_job_name,
     )
 

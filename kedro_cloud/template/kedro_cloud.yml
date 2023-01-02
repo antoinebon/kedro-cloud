@@ -1,7 +1,7 @@
 kedro_cloud:
   aws:
     sagemaker:
-      instance_type: ml.t3.medium
+      instance_type: ml.t3.medium  # default instance type if not specified in run arguments
       image_uri: null
       role_arn: null
 
