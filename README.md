@@ -51,6 +51,7 @@ sagemaker integration
 After that, running your Kedro application on AWS Sagemaker is as easy as:
 ```bash
 kedro cloud sagemaker run --pipeline {pipeline} --env {env}
+kedro cloud sagemaker run --pipeline {pipeline} --env {env}
 ```
 
 By default the command above builds, pushes to ECR, and runs on AWS Sagemaker your
@@ -59,6 +60,12 @@ can do so by running the following two commands
 ```bash
 kedro cloud sagemaker deploy --env {env}
 kedro cloud sagemaker run --pipeline {pipeline} --env {env} --no-deploy
+```
+
+You can also change the Sagemaker job name (by default based on the name of the
+pipeline and the environment) using the `job-name` command argument:
+```bash
+kedro cloud sagemaker run --pipeline {pipeline} --env {env} --no-deploy --job-name my-job
 ```
 
 ## Other cloud providers

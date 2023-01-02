@@ -75,7 +75,7 @@ def deploy(env):
     "--pipeline", "-p", type=str, default="__default__", help=PIPELINE_ARG_HELP
 )
 @click.option(
-    "--job-name", "-n", type=str, default=None, help="Name for the sagemeker job"
+    "--job-name", "-n", type=str, default=None, help="Name for the sagemaker job"
 )
 @click.option(
     "--deploy/--no-deploy",
@@ -87,9 +87,8 @@ def deploy(env):
 @click.pass_context
 def sagemaker_run(ctx, args, pipeline, env, job_name, deploy_flag, **kwargs):
     config = get_plugin_config(env)["aws"]["sagemaker"]
-    job_name = pipeline if job_name is None else job_name
-    base_job_name = f"kedro-{job_name}-{env}"
-    base_job_name = base_job_name.replace("__", "").replace("_", "-").replace(".", "-")
+    job_name = f"kedro-{pipeline}-{env}" if job_name is None else job_name
+    base_job_name = job_name.replace("__", "").replace("_", "-").replace(".", "-")
     processor = Processor(
         image_uri=config["image_uri"],
         role=config["role_arn"],
