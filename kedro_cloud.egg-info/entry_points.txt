@@ -1,0 +1,2 @@
+[kedro.project_commands]
+cloud = kedro_cloud.plugin:commands

@@ -1,0 +1,6 @@
+kedro_cloud:
+  aws:
+    sagemaker:
+      image_uri: null
+      role_arn: null
+
