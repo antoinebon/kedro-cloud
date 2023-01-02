@@ -39,7 +39,7 @@ configure the following 2 infrastructure components:
    required S3 buckets (such as `AmazonS3FullAccess`)
 
 
-Once you have the infrastructure above in place, copy the `image_uri` for the
+Once you have the infrastructure above in place, copy the `image_uri` of the
 ECR repository and the `role_arn` for the Sagemaker job in `kedro_cloud.yml`
 
 
@@ -51,6 +51,14 @@ sagemaker integration
 After that, running your Kedro application on AWS Sagemaker is as easy as:
 ```bash
 kedro cloud sagemaker run --pipeline {pipeline} --env {env}
+```
+
+By default the command above builds, pushes to ECR, and runs on AWS Sagemaker your
+dockerized Kedro application. If you want to isolate the build and push of the run, you
+can do so by running the following two commands
+```bash
+kedro cloud sagemaker deploy --env {env}
+kedro cloud sagemaker run --pipeline {pipeline} --env {env} --no-deploy
 ```
 
 ## Other cloud providers
