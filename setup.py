@@ -33,7 +33,7 @@ setup(
     description="Kedro-cloud makes it easy to run containarized kedro on cloud platforms",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="",  # TODO
+    url="https://github.com/antoinebon/kedro-cloud",
     license="Apache Software License (Apache 2.0)",
     python_requires=">=3.6, <3.11",
     install_requires=requires,
