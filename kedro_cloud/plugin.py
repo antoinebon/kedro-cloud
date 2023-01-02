@@ -98,7 +98,7 @@ def sagemaker_run(ctx, args, pipeline, env, job_name, deploy_flag, **kwargs):
         base_job_name=base_job_name,
     )
 
-    if deploy:
+    if deploy_flag:
         ctx.invoke(deploy, env=env)
 
     cmd = ["kedro", "run", "--pipeline", pipeline, "--env", env] + list(args)
