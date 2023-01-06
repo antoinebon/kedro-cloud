@@ -64,8 +64,7 @@ sagemaker integration
 
 After that, running your Kedro application on AWS Sagemaker is as easy as:
 ```bash
-kedro cloud sagemaker run --pipeline {pipeline} --env {env}
-kedro cloud sagemaker run --pipeline {pipeline} --env {env}
+kedro cloud sagemaker run --pipeline {pipeline} --env {env} [... any other kedro run parameters]
 ```
 
 By default the command above builds, pushes to ECR, and runs on AWS Sagemaker your
